@@ -15,7 +15,7 @@ const CategoriesProvider = ({children}) => {
             setCategories(categoriesData)
 
         } catch (error) {
-            console.error
+            console.error()
         }
     }
 
