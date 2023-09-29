@@ -9,6 +9,8 @@ const DrinksProvider = ({children}) => {
     const [drinks, setDrinks] = useState([])
     const [loading, setLoading] = useState(false)
     const [recipe, setRecipe] = useState([])
+    const [idDrink, setIdDrink] = useState(null)
+    const [showModal, setShowModal] = useState(false)
 
     const getDrinks = async (data) => {
         try {
@@ -30,7 +32,8 @@ const DrinksProvider = ({children}) => {
 
     const getRecipe = async (idDrink) => {
 
-        console.log(idDrink);
+        if(!idDrink) return
+
         try {
 
             setLoading(true)
@@ -39,18 +42,34 @@ const DrinksProvider = ({children}) => {
 
             setRecipe(recipeData)
             
+            
         } catch (error) {
-            console.error()
+            console.log(error)
         } finally {
             setLoading(false)
         }
+    }
+
+    useEffect(() => {
+      getRecipe(idDrink)
+    }, [idDrink])
+
+    const handleIdDrinkClick = (id) => {
+        setIdDrink(id)
+    }
+    
+    const handleShowModalClick = () => {
+        setShowModal((show) => !show)
     }
 
     const contextValue = {
         drinks,
         getDrinks,
         loading,
-        getRecipe
+        handleIdDrinkClick,
+        showModal,
+        handleShowModalClick,
+        recipe
     }
 
   return (
