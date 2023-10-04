@@ -1,0 +1,1 @@
+export const getDrinkById = (drinks, idDrink) => drinks.find(drink => drink.idDrink === idDrink)
